@@ -166,3 +166,9 @@ class View(Tk):
         # Destroy all widgets in __frame_bottom
         for widget in self.__frame_bottom.winfo_children():
             widget.destroy()
+
+    def clear(self, lbl_count_txt, error_lbl_txt):
+        self.search_input.delete(0, 'end')
+        self.lbl_count['text'] = lbl_count_txt
+        self.clear_search_result()
+        self.error_lbl['text'] = error_lbl_txt

@@ -24,28 +24,22 @@ class Model:
     def filename(self, value):
         self.__filename = value
 
-    def read_header(self):
+    def read_data(self):
         self.__header = []
+        self.__data = []
         with open(self.__filename, 'r', encoding='utf-8') as file:
             reader = csv.reader(file, delimiter=';')
             try:
                 self.__header = next(reader)
+                for row in reader:
+                    self.__data.append(row)
             except StopIteration:
                 pass
             file.seek(0)
-        return self.__header
+        return self.__header, self.__data
 
-    def read_file(self):
-        self.__data = []
-        with open(self.__filename, 'r', encoding='utf-8') as file:
-            reader = csv.reader(file, delimiter=';')
-            next(reader)
-            for row in reader:
-                self.__data.append(row)
-            file.seek(0)
-        return self.__data
-
-    def search_data(self, search_string, data):
+    @staticmethod
+    def search_data(search_string, data):
         search_results = []
         for row in data:
             for item in row:
